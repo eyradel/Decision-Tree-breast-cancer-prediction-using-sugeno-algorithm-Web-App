@@ -33,7 +33,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 st.markdown(
     """
-    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #405cE2;">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark" style="background-color: #475cE2;">
     <a class="navbar-brand" href="#"  target="_blank">Breast Cancer Predictor</a>  
     </nav>
 """,
