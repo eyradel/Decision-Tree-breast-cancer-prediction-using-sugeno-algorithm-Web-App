@@ -4,9 +4,6 @@ import sqlite3
 import hashlib
 from datetime import datetime
 import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 
 # Page configuration
 st.set_page_config(
