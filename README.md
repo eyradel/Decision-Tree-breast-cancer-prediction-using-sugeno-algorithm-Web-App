@@ -1,6 +1,6 @@
-# Breast Cancer Prediction System
+# Breast Cancer Diagnosis System
 
-A comprehensive web application for breast cancer prediction using machine learning algorithms with user authentication and SQLite database storage.
+A comprehensive web application for breast cancer diagnosis using machine learning algorithms with user authentication and SQLite database storage.
 
 ## Features
 
@@ -10,16 +10,16 @@ A comprehensive web application for breast cancer prediction using machine learn
 - Session management
 - User-specific prediction history
 
-### Prediction System
+### Diagnosis System
 - 18 comprehensive symptom inputs
-- 7 different breast cancer type predictions
+- 7 different breast cancer type diagnoses
 - Confidence scoring
 - Risk assessment
 
 ### Data Management
 - SQLite database for data persistence
 - Secure user data storage
-- Prediction history tracking
+- Diagnosis history tracking
 - Export capabilities
 
 ## Input Parameters
@@ -45,9 +45,9 @@ The system analyzes the following 18 symptoms and characteristics:
 17. **Change of shape and size** - Breast shape/size changes
 18. **Blood discharge** - Blood discharge from breast
 
-## Output Predictions
+## Output Diagnoses
 
-The system can predict the following 7 breast cancer types:
+The system can diagnose the following 7 breast cancer types:
 
 1. **Angiosarcoma**
 2. **Ductal Carcinoma in situ (DCIS)**
@@ -83,24 +83,24 @@ streamlit run app.py
 3. Create a new account with username and password
 4. Login with your credentials
 
-### Making Predictions
-1. Navigate to the "New Prediction" tab
+### Making Diagnoses
+1. Navigate to the "New Diagnosis" tab
 2. Fill out the comprehensive symptom form
-3. Click "Get Prediction" to receive results
-4. View detailed prediction with confidence score
+3. Click "Get Diagnosis" to receive results
+4. View detailed diagnosis with confidence score
 5. Results are automatically saved to your history
 
 ### Viewing History
 1. Go to the "History" tab
-2. View all your previous predictions
-3. Expand each prediction to see detailed symptoms
-4. Track your prediction patterns over time
+2. View all your previous diagnoses
+3. Expand each diagnosis to see detailed symptoms
+4. Track your diagnosis patterns over time
 
 ## Technical Architecture
 
 ### Database Schema
 - **Users Table**: Stores user authentication data
-- **Predictions Table**: Stores all prediction results with symptoms
+- **Predictions Table**: Stores all diagnosis results with symptoms
 
 ### Machine Learning Model
 - Risk-based scoring algorithm

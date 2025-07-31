@@ -7,7 +7,7 @@ import numpy as np
 
 # Page configuration
 st.set_page_config(
-    page_title="Breast Cancer Prediction System",
+    page_title="Breast Cancer Diagnosis System",
     page_icon="",
     layout="wide"
 )
@@ -169,7 +169,7 @@ st.markdown("""
 
 # Main app logic
 def main():
-    st.markdown('<div class="main-header"><h1>Breast Cancer Prediction System</h1></div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header"><h1>Breast Cancer Diagnosis System</h1></div>', unsafe_allow_html=True)
     
     if not st.session_state.logged_in:
         show_auth_pages()
@@ -230,7 +230,7 @@ def show_main_app():
         st.rerun()
     
     # Navigation
-    tab1, tab2, tab3 = st.tabs(["New Prediction", "History", "About"])
+    tab1, tab2, tab3 = st.tabs(["New Diagnosis", "History", "About"])
     
     with tab1:
         show_prediction_form()
@@ -242,7 +242,7 @@ def show_main_app():
         show_about_page()
 
 def show_prediction_form():
-    st.header("Breast Cancer Prediction Form")
+    st.header("Breast Cancer Diagnosis Form")
     st.markdown("Please fill out the form below with your symptoms and characteristics.")
     
     with st.form("prediction_form"):
@@ -273,7 +273,7 @@ def show_prediction_form():
             change_shape_size = st.selectbox("Change of shape and size", ["No", "Yes"], key="change_shape_size")
             blood_discharge = st.selectbox("Blood discharge", ["No", "Yes"], key="blood_discharge")
         
-        submit_button = st.form_submit_button("Get Prediction")
+        submit_button = st.form_submit_button("Get Diagnosis")
         
         if submit_button:
             # Convert form data to numerical values
@@ -298,17 +298,17 @@ def show_prediction_form():
                 'blood_discharge': 1 if blood_discharge == "Yes" else 0
             }
             
-            # Get prediction
-            prediction_result, confidence_score = get_prediction(form_data)
+            # Get diagnosis
+            diagnosis_result, confidence_score = get_prediction(form_data)
             
-            # Save prediction to database
-            save_prediction(st.session_state.user_id, form_data, prediction_result, confidence_score)
+            # Save diagnosis to database
+            save_prediction(st.session_state.user_id, form_data, diagnosis_result, confidence_score)
             
             # Display results
-            show_prediction_results(prediction_result, confidence_score, form_data)
+            show_prediction_results(diagnosis_result, confidence_score, form_data)
 
 def get_prediction(form_data):
-    # This is a simplified prediction model
+    # This is a simplified diagnosis model
     # In a real application, you would use a trained machine learning model
     
     # Calculate a simple risk score based on symptoms
@@ -340,35 +340,35 @@ def get_prediction(form_data):
     elif form_data['age'] > 30:
         risk_score += 1
     
-    # Determine prediction based on risk score
+    # Determine diagnosis based on risk score
     if risk_score >= 25:
-        prediction = "Inflammatory breast cancer"
+        diagnosis = "Inflammatory breast cancer"
         confidence = 0.85
     elif risk_score >= 20:
-        prediction = "Invasive lobular carcinoma"
+        diagnosis = "Invasive lobular carcinoma"
         confidence = 0.75
     elif risk_score >= 15:
-        prediction = "Ductal Carcinoma in situ (DCIS)"
+        diagnosis = "Ductal Carcinoma in situ (DCIS)"
         confidence = 0.65
     elif risk_score >= 10:
-        prediction = "Lobular carcinoma in situ (LCIS)"
+        diagnosis = "Lobular carcinoma in situ (LCIS)"
         confidence = 0.55
     elif risk_score >= 5:
-        prediction = "Page's disease of the breast"
+        diagnosis = "Page's disease of the breast"
         confidence = 0.45
     elif risk_score >= 2:
-        prediction = "Angiosarcoma"
+        diagnosis = "Angiosarcoma"
         confidence = 0.35
     else:
-        prediction = "Recurrent breast cancer"
+        diagnosis = "Recurrent breast cancer"
         confidence = 0.25
     
-    return prediction, confidence
+    return diagnosis, confidence
 
-def show_prediction_results(prediction_result, confidence_score, form_data):
+def show_prediction_results(diagnosis_result, confidence_score, form_data):
     st.markdown('<div class="result-card">', unsafe_allow_html=True)
-    st.markdown(f"<h2>Prediction Result</h2>", unsafe_allow_html=True)
-    st.markdown(f"<h3>{prediction_result}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h2>Diagnosis Result</h2>", unsafe_allow_html=True)
+    st.markdown(f"<h3>{diagnosis_result}</h3>", unsafe_allow_html=True)
     st.markdown(f"<p>Confidence: {confidence_score:.1%}</p>", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
     
@@ -392,12 +392,12 @@ def show_prediction_results(prediction_result, confidence_score, form_data):
     """)
 
 def show_prediction_history():
-    st.header("Prediction History")
+    st.header("Diagnosis History")
     
     predictions = get_user_predictions(st.session_state.user_id)
     
     if not predictions:
-        st.info("No predictions found. Make your first prediction!")
+        st.info("No diagnoses found. Make your first diagnosis!")
         return
     
     # Debug: Show database structure for first prediction
@@ -405,7 +405,7 @@ def show_prediction_history():
         debug_prediction_structure(st.session_state.user_id)
     
     for i, pred in enumerate(predictions):
-        with st.expander(f"Prediction #{len(predictions) - i} - {pred[22] if len(pred) > 22 else 'Unknown date'}"):
+        with st.expander(f"Diagnosis #{len(predictions) - i} - {pred[22] if len(pred) > 22 else 'Unknown date'}"):
             col1, col2 = st.columns(2)
             
             with col1:
@@ -444,7 +444,7 @@ def show_prediction_history():
                         st.write(f"• {symptom}")
             
             st.write(f"**Age:** {pred[1] if len(pred) > 1 else 'N/A'}")
-            st.write(f"**Prediction:** {pred[19] if len(pred) > 19 else 'N/A'}")
+            st.write(f"**Diagnosis:** {pred[19] if len(pred) > 19 else 'N/A'}")
             # Convert confidence to float and format as percentage
             try:
                 confidence = float(pred[20]) if len(pred) > 20 and pred[20] is not None else 0.0
@@ -457,15 +457,15 @@ def show_about_page():
     st.header("About This Application")
     
     st.markdown("""
-    ### Breast Cancer Prediction System
+    ### Breast Cancer Diagnosis System
     
-    This application uses advanced machine learning algorithms to predict potential breast cancer types based on symptoms and characteristics.
+    This application uses advanced machine learning algorithms to diagnose potential breast cancer types based on symptoms and characteristics.
     
     #### How it works:
     1. **Input Collection**: Users provide information about their symptoms and characteristics
     2. **Risk Assessment**: The system analyzes the input data using trained models
-    3. **Prediction**: Results are generated with confidence scores
-    4. **Storage**: All predictions are securely stored in the database
+    3. **Diagnosis**: Results are generated with confidence scores
+    4. **Storage**: All diagnoses are securely stored in the database
     
     #### Possible Outcomes:
     - **Angiosarcoma**
